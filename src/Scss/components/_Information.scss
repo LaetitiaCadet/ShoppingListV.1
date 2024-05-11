@@ -1,0 +1,126 @@
+@import "../Conf.scss";
+
+.information-box{
+    margin-top: 50px;
+    .host-presentation{
+
+        h2, p{
+            color:$primary;
+            font-weight: 700;
+        }
+
+        .badge{
+            margin-right:10px;
+            font-weight: 500;
+        }
+
+        .host-id{
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            margin-bottom:15px;
+            .host-name{
+                font-size:18px;
+                font-weight: 700;
+                color:$primary;
+                margin:0;
+            }
+            .host-profil{
+                width: 65px;
+                height: 65px;
+                border-radius: 50px;
+            }
+        }
+
+        .host-rating{
+            display: flex;
+            justify-content: end;
+        }
+
+        .starred{
+            background:url('../../assets/star_rate.svg') no-repeat;
+            width: 36px;
+            height: 36px;
+        }
+        .notStarred{
+            background:url('../../assets/star.svg') no-repeat;
+            width: 36px;
+            height: 36px;
+        }
+    
+    }
+    
+    #host-description{
+        margin-top: 50px;
+        font-size:18px;
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 34.22px;
+            color: white;
+    
+            .expand{
+                content:url('../../assets/expanIcon.svg');
+                position: relative;
+                top:0px;
+                width: 37px;
+                height: 36px;
+                transition: all 0.5s;
+              }
+    
+        }
+    
+        button[aria-expanded="true"] .expand{
+            -webkit-transform: rotateX(180deg);
+            -moz-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+    
+          }
+    
+    
+          
+        .card-body{
+        position: relative;
+        bottom:10px;
+        z-index:-1;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 34.22px;
+        text-align: initial;
+        padding-top:30px;
+        background:#F7F7F7;
+        color:$primary
+        }
+    
+        p{
+            margin:0;
+        }
+    
+    }
+}
+
+@media screen and (max-width: 1055px){
+    .title-location{
+        width: 100% !important;
+    }
+
+    .host-title{
+        display: flex;
+        flex-direction: row-reverse;
+        width:100% !important;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 45px;
+        .host-id{
+            justify-content: initial !important;
+        }
+    }
+
+    .host-description col {
+        width: 100%;
+    }
+  
+  }

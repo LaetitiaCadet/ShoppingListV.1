@@ -1,0 +1,65 @@
+@import "./Conf.scss";
+
+.App {
+  margin: 0px auto;
+  max-width: 1440px;
+  width: 100%;
+}
+
+a {
+  color: #FF6060;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 34.22px;
+}
+
+.Product-Card {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.Header-Img-Home {
+  position: relative;
+  background-image: url('../assets/backgroundHome.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0 auto;
+  padding: 25px;
+  height: 223px;
+  opacity: 0.9;
+  border-radius: 25px;
+
+  h1 {
+    position: relative;
+    top: 60px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 48px;
+    color: white;
+  }
+}
+
+
+.App-link {
+  color: #FF6060;
+}
+
+@media screen and (max-width: 844px) {
+  .Header-Img-Home {
+    background-size: inherit;
+    height: 111px;
+
+    h1 {
+      font-size: 24px;
+      line-height: 24px;
+      top: 15px;
+      text-align: start;
+    }
+  }
+
+}

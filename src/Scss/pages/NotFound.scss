@@ -1,0 +1,29 @@
+.notFound{
+    margin: 0 auto;
+    text-align: center;
+    color: #FF6060;
+
+    
+    h1 {
+        margin: 50px;
+        font-size: 288px;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 36px;
+    }
+
+    span{
+        position: relative;
+        top: 100px;
+        text-decoration: underline; 
+    }
+
+    @media screen and (max-width: 844px){
+        h1 {
+            margin: 50px;
+            font-size: 120px;
+        }
+      }
+}

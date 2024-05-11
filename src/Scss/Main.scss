@@ -1,0 +1,19 @@
+//General and vars 
+@import "./Conf.scss";
+@import "./App.scss";
+
+
+//Components
+@import "./components/Nav";
+@import "./components/Footer";
+@import "./components/Information";
+
+//Pages
+@import "./pages/NotFound.scss";
+
+
+//Google Font
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+//Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
