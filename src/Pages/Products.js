@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { SearchContext } from "../hook/useSearch"
 import Product from "../components/Product";
 import SearchBar from "../components/SearchBar";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import "../Scss/App.scss";
+
 
 function Products() {
     const [data, setData] = useState();
-    const url = "https://fr-en.openfoodfacts.org/category/pizzas.json"
+
+    const [resultSearch, setResultSearch] = useState("");
+    // const url = "https://fr-en.openfoodfacts.org/category/pizzas.json"
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(url);
-            const pizzas = await response.json()
-            setData(pizzas.products)
-        }
-        fetchData()
-            .catch(console.error)
-    }, [])
+    /* The `useEffect` hook in the code snippet is used to perform side effects in a functional component.
+    In this case, it is fetching data from the specified URL when the component mounts (since the
+    dependency array `[]` is empty, indicating it should only run once after the initial render). */
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await fetch(url);
+    //         const pizzas = await response.json()
+    //         setData(pizzas.products)
+    //     }
+    //     fetchData()
+    //         .catch(console.error)
+    // }, [])
 
 
     return (
@@ -27,22 +32,10 @@ function Products() {
             <Nav />
             <header>
                 Products List
-                <SearchBar></SearchBar>
-                <ul className="Product-Card">
-                    {data && data.map(({ id, brands, image_small_url, nutriscore_grade, origins, generic_name_fr_imported }) =>
-
-                        <Product
-                            id={id}
-                            brands={brands}
-                            image_small_url={image_small_url}
-                            nutriscore_grade={nutriscore_grade}
-                            origins={origins}
-                            generic_name_fr_imported={generic_name_fr_imported}
-                        />
-                    )}
-                </ul>
+                <SearchContext.Provider value={{ resultSearch, setResultSearch }}>
+                    <SearchBar></SearchBar>
+                </SearchContext.Provider>
             </header>
-
             <Footer />
         </div>
     )

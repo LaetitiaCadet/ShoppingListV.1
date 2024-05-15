@@ -1,14 +1,17 @@
-import React from 'react'
-import { useState } from 'react'
-import Product from "../components/Product";
+import React, { useEffect } from 'react'
+import { useState, useContext } from 'react'
+import Product from './Product';
+import { SearchContext } from '../hook/useSearch';
+import { SpinnerLoader } from './spinnerLoader';
+import "../Scss/App.scss";
 
 const SearchBar = () => {
 
     const [keyword, setKeyWord] = useState("");
-    const [resultData, setResultData] = useState();
+    const { resultSearch, setResultSearch } = useContext(SearchContext);
+    const [loading, setLoading] = useState("")
     const searchUrl = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${keyword}&search_simple=1&action=process&json=1`
 
-    console.log(resultData)
     const handleSearchInputChange = (e) => {
         e.persist()
         let value = e.target.value;
@@ -16,21 +19,34 @@ const SearchBar = () => {
 
     }
 
-
     const fetchSearchData = async () => {
-        const response = await fetch(searchUrl);
-        const results = await response.json();
-        setResultData(results)
-        console.log(resultData)
+        setLoading(true)
+        try {
+            const response = await fetch(searchUrl);
+
+            if (response.ok) {
+                console.log("Promise resolved and HTTP status is successful")
+                const results = await response.json();
+                setLoading(false)
+                setResultSearch(results.products)
+
+            } else {
+                if (response.status === 404) throw new Error('404, Not found');
+                if (response.status === 500) throw new Error('500, internal server error');
+
+                throw new Error(response.status);
+            }
+
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+        }
+        console.log(resultSearch)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
     }
-
-
-
 
     return (
         <div>
@@ -49,10 +65,31 @@ const SearchBar = () => {
                     >
                         Entrer
                     </button>
+
                     <p onClick={fetchSearchData}>Test</p>
+
                 </div>
 
             </form>
+            {
+                loading ? (<SpinnerLoader />) : (
+                    <ul className="Product-Card">
+                        {resultSearch && resultSearch.map(({ id, brands, image_small_url, nutriscore_grade, origins, generic_name_fr_imported, abbreviated_product_name }) =>
+                            <Product
+                                id={id}
+                                brands={brands}
+                                image_small_url={image_small_url}
+                                nutriscore_grade={nutriscore_grade}
+                                origins={origins}
+                                generic_name_fr_imported={generic_name_fr_imported}
+                                abbreviated_product_name_fr={abbreviated_product_name}
+                            />
+                        )}
+                    </ul>
+
+                )
+            }
+
 
         </div>
     )
