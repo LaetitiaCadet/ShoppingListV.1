@@ -9,6 +9,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap'
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Products from './Pages/Products';
+import SearchResult from './Pages/SearchResult';
 import NotFound from './Pages/NotFound';
 
 const root = ReactDOM.createRoot(
@@ -20,6 +21,7 @@ root.render(
       <Route path="/" element={<Home />} />
       <Route path="About" element={<About />} />
       <Route path="Products" element={<Products />} />
+      <Route path="SearchResult" element={<SearchResult />} />
       <Route path="/404" element={<Navigate to={<NotFound />} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
