@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Spin from "../assets/spin.svg"
 import "../Scss/components/_Spinner.scss"
 
-export const SpinnerLoader = () => {
+ const SpinnerLoader = () => {
     const [text, setText] = useState('')
     const [showImg, setShowImg] = useState(true)
 
@@ -26,3 +26,5 @@ export const SpinnerLoader = () => {
         </div>
     )
 }
+
+export default SpinnerLoader

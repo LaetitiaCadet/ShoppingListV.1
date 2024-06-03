@@ -10,10 +10,10 @@ function Nav() {
     return (
         <div>
             <nav className="Navbar">
-                <span alt="Logo">Shopping List V.1</span>
+                <Link to="/"><h3 alt="Logo">Shopping List V.1</h3></Link>
                 <ul className='Nav-items'>
                     <li>
-                        <Link to="/">Accueil</Link>
+                        <Link to="/login">Se connecter</Link>
                     </li>
                     <li>
                         <Link to="/about">A propos</Link>
