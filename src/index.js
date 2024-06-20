@@ -12,6 +12,7 @@ import Products from './Pages/Products';
 import SearchResult from './Pages/SearchResult';
 import NotFound from './Pages/NotFound';
 import Login  from './Pages/Login';
+import Register from './Pages/Register';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root')
@@ -21,6 +22,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="Login" element={<Login />} />
+      <Route path="Register" element={<Register />} />
       <Route path="About" element={<About />} />
       <Route path="Products" element={<Products />} />
       <Route path="SearchResult" element={<SearchResult />} />

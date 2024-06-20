@@ -1,0 +1,44 @@
+.register-content{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px 16px;
+    max-width: 350px;
+    h1{
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 50px;
+    }
+    label{
+        font-weight: 700;
+        margin-bottom:10px;
+    }
+    .errorLabel{
+        color: red; 
+        font-weight: 700;
+    }
+    input{
+        border: 2px solid grey;
+        padding: 6px;
+        border-radius: 10px;
+    }
+    .input-wrapper{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    .register_button{
+        display: block;
+        background: green;
+        color: white;
+        font-weight: 700;
+        border: none;
+        border: 1px solid grey;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+}

@@ -16,6 +16,9 @@ function Nav() {
                         <Link to="/login">Se connecter</Link>
                     </li>
                     <li>
+                        <Link to="/register">S'inscrire</Link>
+                    </li>
+                    <li>
                         <Link to="/about">A propos</Link>
                     </li>
                 </ul>

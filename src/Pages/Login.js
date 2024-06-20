@@ -12,30 +12,51 @@ const Login = () =>{
 
     const navigate = useNavigate()
 
-    const onButtonClick =() => {
+    const userObject = {
+        email: email,
+        password: password,
+    } 
+
+    const loginUser = async () => {
+        await fetch("http://localhost:5000/", {
+            method: "POST",
+            headers:{
+                'Accept': 'application/json',
+                "Content-Type": "application/json",   
+            },
+            body: JSON.stringify(userObject),
+        })
+        .then(response => {
+            if (response.status === 200){
+                console.log(response.status)
+                console.log(userObject)
+                console.log(response)
+            } else {
+                console.log(response.status)
+            } 
+        })
+    }
+
+    const onButtonClick = () => {
         setEmailError('')
         setPasswordError('')
 
         if ('' === email){
-            setEmailError('Veuillez saisir votre email')
-            return
-        }
-
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
+            setEmailError('Veuillez saisir votre email')  
+        } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
             setEmailError('Veuillez saisir une adresse email valide')
-            return
-        }
-
-        if('' === password){
+        } else if('' === password){
             setPasswordError('Veuillez saisir votre mot de passe')
-            return 
+        } else if(password.length < 7){
+            setPasswordError('Votre mot de passe doit contenir 8 characters minimum')
+        } else {
+            loginUser() 
         }
 
-        if(password.length < 7){
-            setPasswordError('Votre mot de passe doit contenir 8 characters minimum')
-            return 
-        }
+           
     }
+
+
 
     return (
         <div className="App">
@@ -55,7 +76,7 @@ const Login = () =>{
                             <span className="errorLabel">{emailError}</span>
                         </div>
                         <div className="input-wrapper">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Mot de passe</label>
                             <input
                                 type="password"
                                 id="password"
