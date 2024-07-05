@@ -16,7 +16,6 @@ const Register = () => {
 
     const navigate = useNavigate()
 
-
     const registerUserObject = {
         name: name,
         email: email,
@@ -33,16 +32,16 @@ const Register = () => {
             body: JSON.stringify(registerUserObject),
         })
         .then(response => {
-            if (response.status === 200){
-                console.log(response.status)
-                console.log(registerUserObject)
-                console.log(response)
-                alert("Votre compte à été crée avec succès! Vous allez être redirigez sur la page de connection.")
-                navigate("/login")
-            } else {
-                console.log(response.status)
-                setServeurError('Une erreur est survenue veuillez réessayer plus tard.')
+            if (response.ok){
+                console.log(response.statusText)
+                // alert("Votre compte à été crée avec succès! Vous allez être redirigez sur la page de connection.")
+                // navigate("/login")
             } 
+        })
+        .catch((error) => {
+            console.error(error.message)
+            setServeurError(error.message)
+
         })
     }
     

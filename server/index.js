@@ -5,6 +5,7 @@ const connectDB = require('./database/connection')
 const routes = require('./routes')
 const bodyParser = require("body-parser")
 
+
 //Lecture des configurations
 dotenv.config()
 connectDB()
@@ -42,7 +43,6 @@ app.listen(process.env.PORT, () => {
 
 app.use('/', routes);
 // app.use('/users', users)
-
 
 
 

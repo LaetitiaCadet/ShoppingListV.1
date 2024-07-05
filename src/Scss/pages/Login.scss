@@ -41,4 +41,15 @@
         margin: 0 auto;
         margin-top: 15px;
     }
+    .not-account{
+        text-align: center;
+        p{
+            font-weight: 700;
+            a {
+                color: #FF6060;
+                text-decoration: none;
+                font-size: medium;  
+              }   
+        }
+    }
 }

@@ -4,11 +4,14 @@ import Nav from "../components/Nav"
 import Footer from "../components/Footer";
 import "../Scss/pages/Login.scss"
 
+
 const Login = () =>{
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('')
     const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    const [passwordError, setPasswordError] = useState('')
+    const [error, setError] = useState('');
+    const [token, setToken] = useState('')
 
     const navigate = useNavigate()
 
@@ -18,23 +21,29 @@ const Login = () =>{
     } 
 
     const loginUser = async () => {
-        await fetch("http://localhost:5000/", {
-            method: "POST",
-            headers:{
-                'Accept': 'application/json',
-                "Content-Type": "application/json",   
-            },
-            body: JSON.stringify(userObject),
-        })
-        .then(response => {
-            if (response.status === 200){
-                console.log(response.status)
-                console.log(userObject)
-                console.log(response)
-            } else {
-                console.log(response.status)
-            } 
-        })
+        try {
+            await fetch("http://localhost:5000/login", {
+                method: "POST",
+                headers:{
+                    'Accept': 'application/json',
+                    "Content-Type": "application/json",   
+                },
+                body: JSON.stringify(userObject),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resData = data
+                    // let jwt = sessionStorage.setItem("user", )
+                    // console.log(jwt)
+                    if (resData.status === 200){
+                        navigate(`/Profil?id=${resData._id}`)
+                    }
+                    setError(resData.message)
+                
+            })
+        } catch (response) {
+            console.log(response)
+        }
     }
 
     const onButtonClick = () => {
@@ -93,6 +102,11 @@ const Login = () =>{
                             />
                             <label htmlFor="remember-me">Se souvenir de moi</label>
                         </div>
+                        <div className="not-account">
+                            <p>Vous n'avez pas de compte ? <Link to="/register">S'inscrire</Link></p>
+                            
+                        </div>
+                        <span className="errorLabel">{error}</span>
                         <input type="button" className="login_button" onClick={onButtonClick} value={'Connection'} placeholder="Connection"/>
                     </form>
                 </section>
