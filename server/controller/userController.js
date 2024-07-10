@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require("../database/models/user")
-const { config } = require("dotenv")
+const dotenv = require("dotenv")
 
 // Creation d'un nouvel utilisateur 
 module.exports.createUser = async (req, res) => {
@@ -37,45 +37,76 @@ module.exports.createUser = async (req, res) => {
 module.exports.loginUser = async (req, res) => {
     let response = {}
     try {
+        // Je récupère l'email de l'utilisateur 
         const user = await User.findOne({email: req.body.email})
         if (!user){
+            //j'envoi un msg d'erreur si User n'est pas en Bdd
             throw new Error("Adresse email inexistant")        
         } 
 
         const isValid = await bcrypt.compare(req.body.password, user.password)
         if (!isValid){
+            //j'envoi un msg d'erreur si le mode passe ne correspond pas
             throw new Error("Le mot de passe est incorrect")
         }
 
+        console.log(user._id, user.name)
        // const xsrfToken = crypto.randomBytes(64).toString('hex');
 
-        // const token = jwt.sign(
+        //on créer le JWT
+        const accessToken = jwt.sign(
+                
+            {id: user._id, name: user.name}, 
+            'RANDOM_TOKEN_SECRET',
+            {expiresIn: "24h"}
+        );
 
-        //     {id: user._id, name: user.name}, 
-        //     config.token.secret,
-        //     { 
-        //         algorithm: config.token.algorithm,
-        //         audience: config.token.audience,
-        //         expiresIn: config.token.expiresIn / 1000, //Le délai avant expiration exprimé en seconde
-        //         subject: user._id.toString()
-        //     }            
-        // )
-
+        // création du refresh token et on le stoke dans la bdd
         // const refreshToken = crypto.randomBytes(128).toString('base64')
-// 
+
+        // await refreshToken.create({ 
+        //     userId: user.id,
+        //     token: refreshToken,
+        //     expireAt: Date.now() + config.refreshToken.expiresIn
+        // });
+
         response.status = 200
         response._id = user._id
+        response.name = user.name
+        response.token = accessToken
         response.message = "User successfully logged in"
-        // response.token = token
-        // res.json({token})
+
+        return res.json(response);
 
     } catch (error) {
         console.error(error)
         response.status = 400 
         response.message = error.message 
-        
+        res.status(500).json({ message: 'Internal server error' })
     }
     res.status(response.status).send(response)
-     
-    
+      
+}
+
+module.exports.getUserProfil = async (req, res) => {
+    let response = {}
+    try {
+        const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
+        const decodedToken = jwt.decode(jwtToken)
+        const user = await User.findOne({_id: decodedToken.id})
+
+        if(!user){
+            throw new Error ('User not found')
+        }
+
+        response.status = 200
+        response.message = 'Successfully got user profile data'
+        response.name = user.name
+        
+
+    } catch (error) {
+        console.error('Error in userController', error)
+        throw new Error(error)
+    }
+    res.status(response.status).json(response)
 }

@@ -33,13 +33,11 @@ const Login = () =>{
             .then(response => response.json())
             .then(data => {
                 const resData = data
-                    // let jwt = sessionStorage.setItem("user", )
-                    // console.log(jwt)
+                    setToken(sessionStorage.setItem('user', resData.token))
                     if (resData.status === 200){
                         navigate(`/Profil?id=${resData._id}`)
                     }
                     setError(resData.message)
-                
             })
         } catch (response) {
             console.log(response)

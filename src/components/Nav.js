@@ -2,30 +2,21 @@ import { useEffect, useState } from "react";
 import {
     Link,
     useNavigate,
-    useParams
 } from "react-router-dom";
 import "../Scss/components/_Nav.scss";
 
 
 const Nav = () => {
-    const [logId, setLogId] = useState("")
-    let params = useParams()
-
-    console.log(params.id)
-    
-    useEffect(() => {     
-        setLogId(params.id)
-    },[])
-
     const navigate = useNavigate()
+    const token = sessionStorage.getItem('user')
 
     const LogOut = (e) => {
         e.preventDefault()
-        setLogId("")
-        sessionStorage.removeItem('user')
+        sessionStorage.removeItem('_id')
         sessionStorage.clear()
         navigate('/', {replace:true})
     }
+
 
     return (
         <div>
@@ -33,7 +24,7 @@ const Nav = () => {
                 <Link to="/"><h3 alt="Logo">Shopping List V.1</h3></Link>
                 <ul className='Nav-items'>
                     {
-                        logId ?                  
+                        token ?                  
                         <li>
                             <Link to="/List">Mes Listes</Link>
                             <Link to="/Account">Compte</Link>

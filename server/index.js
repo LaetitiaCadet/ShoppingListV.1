@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const https = require('https')
+
 const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
@@ -12,6 +16,11 @@ connectDB()
 
 //Lancement du serveur
 const app = express()
+
+const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
+const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'))
+
+const option = {key, cert}
 
 //MIDDLEWARE
 // parse application/x-www-form-urlencoded

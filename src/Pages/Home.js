@@ -14,7 +14,7 @@ function Home() {
                     <h1>Faire ça liste de course de manière plus efficace !</h1>
                 </section>
             </header>
-            <Link  >C'est partie !</Link>
+            <Link className="" to="/login">C'est partie !</Link>
             <Footer />
         </div>
     )
