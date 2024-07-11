@@ -82,7 +82,7 @@ module.exports.loginUser = async (req, res) => {
         console.error(error)
         response.status = 400 
         response.message = error.message 
-        res.status(500).json({ message: 'Internal server error' })
+        // res.status(500).json({ message: 'Internal server error' })
     }
     res.status(response.status).send(response)
       
@@ -102,7 +102,7 @@ module.exports.getUserProfil = async (req, res) => {
         response.status = 200
         response.message = 'Successfully got user profile data'
         response.name = user.name
-        
+
 
     } catch (error) {
         console.error('Error in userController', error)

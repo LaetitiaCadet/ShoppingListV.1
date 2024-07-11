@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Nav from '../../components/Nav'
+import SearchBar from '../../components/SearchBar'
 
 const Profil = () => {
    const [name, setName] = useState()
@@ -22,7 +23,7 @@ const Profil = () => {
                let user = data
                console.log(user)
                setName(user.name)
-               if (data.status != 200){
+               if (data.status !== 200){
                   setTimeout(() => {
                      navigate('/login')
                   }, 2000)
@@ -33,7 +34,7 @@ const Profil = () => {
          }
       }
       fetchData()
-  },[])
+  },[navigate, token])
  return (
     <div>
       { token ?
@@ -43,6 +44,7 @@ const Profil = () => {
             </header>
             <h1>Bonjour { name ? name : "cher utilisateur"}</h1>
             <p>Citation du jour</p>
+            <SearchBar></SearchBar>
          </div>
       :
       <div>
