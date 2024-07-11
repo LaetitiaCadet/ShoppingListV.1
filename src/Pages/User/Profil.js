@@ -38,7 +38,7 @@ const Profil = () => {
  return (
     <div>
       { token ?
-         <div>
+         <div className='App'>
             <header>
                <Nav/>
             </header>
