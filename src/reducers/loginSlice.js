@@ -2,7 +2,9 @@ import {createReducer, createSlice} from "@reduxjs/toolkit"
 import { userLogin } from "./action"
 
 createReducer(initialState, builder => {
-    builder.addCase(userLogin,(state, action) => {})
+    builder.addCase(userLogin, (state, action) => {
+        
+    })
 })
 
 const loginSlice = createSlice({
