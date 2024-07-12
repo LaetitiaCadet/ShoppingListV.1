@@ -9,6 +9,7 @@ const SearchBar = () => {
     const [resultSearch, setResultSearch] = useState("")
     const [terms, setTerms] = useState("");
     const [isLoading, setIsLoading] = useState("")
+    const [categorie, setCategorie] = useState("")
     // const [submit, setSubmit] = useState(false);
     
     const handleSearchInputChange = (e) => {
@@ -33,9 +34,10 @@ const SearchBar = () => {
         console.log("waiting for data . . .")
         setIsLoading(true)
         try {
-            await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${terms}&search_simple=1&action=process&json=1`) 
+            await fetch(`https://fr-en.openfoodfacts.org/cgi/search.pl?search_terms=${terms}&search_simple=1&action=process&json=1`) 
             .then(response => response.json() 
             .then(data => {
+                console.log(data)
                 console.log(data.products)
                 console.log("success !")
                 setResultSearch(data.products)

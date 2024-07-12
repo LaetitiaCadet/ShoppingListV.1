@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { addEmail, addName, addPassword, setSubmit, setErrorMsg, setServerMsg } from "../reducers/registerSlice"
+import { userRegister } from "../reducers/action";
+import { useDispatch, useSelector } from "react-redux"
 import Nav from "../components/Nav"
 import Footer from "../components/Footer";
 import "../Scss/pages/Register.scss"
 
 const Register = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { errorMsg, serverMsg} = useSelector((state) => state.register)
+    const {name, email, password} = useSelector((state => state.register))
+    const currentState = useSelector((state) => state.register)
+    console.log(currentState)
+    // const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword]= useState('');
     const [nameError, setNameError] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -15,6 +22,7 @@ const Register = () => {
     const [serverError, setServeurError] = useState('');
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const registerUserObject = {
         name: name,
@@ -22,27 +30,47 @@ const Register = () => {
         password: password,
     }
 
-    const registerUser = async () => {
-        await fetch("http://localhost:5000/register", {
-            method: "POST",
-            headers:{
-                'Accept': 'application/json',
-                "Content-Type": "application/json",   
-            },
-            body: JSON.stringify(registerUserObject),
-        })
-        .then(response => {
-            if (response.ok){
-                console.log(response.statusText)
-                // alert("Votre compte à été crée avec succès! Vous allez être redirigez sur la page de connection.")
-                // navigate("/login")
-            } 
-        })
-        .catch((error) => {
-            console.error(error.message)
-            setServeurError(error.message)
 
-        })
+    const handleNameInputChange = (e) => {
+        e.persist();
+        dispatch(addName(e.target.value))
+    }
+
+    const handleEmailInputChange = (e) => {
+        e.persist();
+        dispatch(addEmail(e.target.value))
+    }
+
+    const handlePasswordInputChange = (e) => {
+        e.persist();
+        dispatch(addPassword(e.target.value))
+    }
+
+    const registerUser = async () => {
+        if (errorMsg){
+            setServeurError(serverMsg)
+        }
+        dispatch(userRegister({name, email, password}))
+        // await fetch("http://localhost:5000/register", {
+        //     method: "POST",
+        //     headers:{
+        //         'Accept': 'application/json',
+        //         "Content-Type": "application/json",   
+        //     },
+        //     body: JSON.stringify(registerUserObject),
+        // })
+        // .then(response => {
+        //     if (response.ok){
+        //         console.log(response.statusText)
+        //         // alert("Votre compte à été crée avec succès! Vous allez être redirigez sur la page de connection.")
+        //         // navigate("/login")
+        //     } 
+        // })
+        // .catch((error) => {
+        //     console.error(error.message)
+        //     setServeurError(error.message)
+
+        // })
     }
     
     const onButtonClick = () => {
@@ -82,7 +110,7 @@ const Register = () => {
                                     type="text"
                                     id="name"
                                     placeholder="Entrez votre adresse name"
-                                    onChange={(e) => setName(e.target.value)}
+                                    onChange={handleNameInputChange}
                                 />
                                 <span className="errorLabel">{nameError}</span>
                             </div>
@@ -92,7 +120,7 @@ const Register = () => {
                                     type="email"
                                     id="email"
                                     placeholder="Entrez votre adresse email"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={handleEmailInputChange}
                                 />
                                 <span className="errorLabel">{emailError}</span>
                             </div>
@@ -103,7 +131,7 @@ const Register = () => {
                                     id="password"
                                     placeholder="Entrez votre mot de passe"
                                     autoComplete="current-password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={handlePasswordInputChange}
                                 />
                                 <span className="errorLabel">{passwordError}</span>
                             </div>
