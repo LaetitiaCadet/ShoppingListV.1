@@ -1,27 +1,35 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 
-import { setFirstName, setLastName} from "./profilSlice"
+import { setName } from "./profilSlice"
 import { setServerMsg} from "./registerSlice"
 
 
-const baseUrl = "http://localhost:5000/"
+const baseUrl = "http://localhost:5000"
 
 export const userRegister = createAsyncThunk (
-    'user/login',
+    'user/register',
     async ({name, email, password }, thunkAPI) => {
       const {rejectWithValue, dispatch} = thunkAPI
         try{
            await fetch(baseUrl + '/register', {
+              method: "POST",
+              headers:{
+                  'Accept': 'application/json',
+                  "Content-Type": "application/json",   
+              },
+              body: JSON.stringify({
                 name: name,
                 email: email, 
                 password: password
-              })
-              .then((response) => {
-                if (response.status === 200){
-                  dispatch(setServerMsg(response.data.message)) 
-                  return response.data
-                }
-              })
+              }),
+
+            })
+            .then((response) => {
+              if (response.status === 200){
+                dispatch(setServerMsg(response.message)) 
+                return response.data
+              }
+            })
         } catch (error){
           if (error.response) { 
             console.log(error.response.data);
@@ -64,7 +72,7 @@ export const userLogin = createAsyncThunk (
 
 
 export const userInfos = createAsyncThunk (
-  'user/infos',
+  'user/profil',
   async ({token}, thunkAPI) => {
       const {dispatch, rejectWithValue} = thunkAPI
       try{
@@ -75,8 +83,7 @@ export const userInfos = createAsyncThunk (
             })
             .then((response) => {
               const responseBody = response.data.body
-              dispatch(setFirstName(responseBody.firstName))
-              dispatch(setLastName(responseBody.lastName))
+              dispatch(setName(responseBody.name))
               return response.data
             })
       } catch (error){
@@ -92,7 +99,7 @@ export const userInfos = createAsyncThunk (
 
 // update user infos Firstname and Lastname
 export const updateUserInfos = createAsyncThunk (
-  'user/infos',
+  'user/profil',
   async ({name, token}, thunkAPI) => {
       const {rejectWithValue} = thunkAPI
       try{

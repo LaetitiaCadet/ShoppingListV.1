@@ -3,14 +3,13 @@ import {createSlice} from "@reduxjs/toolkit"
 const profilSlice = createSlice({
     name:"profil",
     initialState: {
-        lastName:"",
         name: "",
         isLogged: false, 
         modifyInfos: false
     },
     reducers: {
         //Profil
-        setSame: (state, action) => {
+        setName: (state, action) => {
             // {type: "profil/name", payload: "billy"}
             state.name = action.payload
         },
@@ -25,5 +24,5 @@ const profilSlice = createSlice({
 
 })
 
-export const {setFirstName, setLastName, setSubmitInfos, setLogged} = profilSlice.actions;
+export const {setName, setSubmitInfos, setLogged} = profilSlice.actions;
 export default profilSlice

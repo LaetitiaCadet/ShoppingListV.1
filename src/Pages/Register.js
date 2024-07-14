@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addEmail, addName, addPassword, setSubmit, setErrorMsg, setServerMsg } from "../reducers/registerSlice"
+import { addEmail, addName, addPassword} from "../reducers/registerSlice"
 import { userRegister } from "../reducers/action";
 import { useDispatch, useSelector } from "react-redux"
 import Nav from "../components/Nav"
@@ -8,10 +8,15 @@ import Footer from "../components/Footer";
 import "../Scss/pages/Register.scss"
 
 const Register = () => {
-    const { errorMsg, serverMsg} = useSelector((state) => state.register)
-    const {name, email, password} = useSelector((state => state.register))
-    const currentState = useSelector((state) => state.register)
+    // const {errorMsg, serverMsg} = useSelector((state) => state.register)
+    const name = useSelector((state) => state.userRegister.name)
+    const email = useSelector((state) => state.userRegister.email)
+    const password = useSelector((state) => state.userRegister.password)
+    const success = useSelector((state) => state.userRegister.isSuccess)
+    console.log(name)
+    const currentState = useSelector((state) => state.userRegister)
     console.log(currentState)
+    // console.log(name, email , password)
     // const [name, setName] = useState('');
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
@@ -23,12 +28,6 @@ const Register = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
-    const registerUserObject = {
-        name: name,
-        email: email,
-        password: password,
-    }
 
 
     const handleNameInputChange = (e) => {
@@ -47,10 +46,13 @@ const Register = () => {
     }
 
     const registerUser = async () => {
-        if (errorMsg){
-            setServeurError(serverMsg)
-        }
+        // if (errorMsg){
+        //     setServeurError(serverMsg)
+        // }
         dispatch(userRegister({name, email, password}))
+        if (success){
+            navigate('/login')
+        }
         // await fetch("http://localhost:5000/register", {
         //     method: "POST",
         //     headers:{
@@ -87,7 +89,7 @@ const Register = () => {
             setEmailError('Veuillez saisir une adresse email valide')
         } else if('' === password){
             setPasswordError('Veuillez saisir votre mot de passe')
-        } else if(password.length < 7){
+        } else if(password.length < 6){
             setPasswordError('Votre mot de passe doit contenir 8 characters minimum')
         } else if (password !== confirmPassword){
             setPasswordError('Les deux mots de passe sont différent')

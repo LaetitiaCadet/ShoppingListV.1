@@ -15,42 +15,104 @@ const registerSlice = createSlice({
         errorMsg:"",
         serverMsg:""
     },
-    reducers: {
+    // reducers: {
+    //     //register
+    //     addName: (state, action) => {
+    //         // {type: "user/addName", payload: "Paulo"}
+    //         state.name = action.payload
+    //     },
+    //     addEmail: (state, action) => {
+    //         // {type: "user/addEmail", payload: "email@mail.com"}
+    //         state.email = action.payload
+    //     },
+    //     addPassword: (state, action) => {
+    //         // {type: "user/addPassword", payload: "12345367"}
+    //         state.password = action.payload
+    //     },
+    //     setSubmit: (state, action) => {
+    //         // {type: "user/setSubmit", payload: "boolean"}
+    //         state.isSubmit = action.payload
+    //     },
+    //     setToken: (state, action) => {
+    //         state.token = action.payload  
+    //     },
+    //     setSuccess: (state, action) => {
+    //         state.isSuccess = action.payload
+    //     },
+    //     setErrorMsg: (state, action) => {
+    //         state.errorMsg = action.payload
+    //     },
+    //     setServerMsg: (state, action) => {
+    //         state.serverMsg = action.payload
+    //     }, 
+    //     clearState:(state) => {
+    //         state.isError =  false;
+    //         state.isSuccess = false;
+    //         return state;
+    //     }
+    // },
+    reducers: create => ({
         //register
-        addName: (state, action) => {
+        addName: create.reducer( (state, action) => {
             // {type: "user/addName", payload: "Paulo"}
             state.name = action.payload
-        },
-        addEmail: (state, action) => {
+        }),
+
+        addEmail: create.reducer( (state, action) => {
             // {type: "user/addEmail", payload: "email@mail.com"}
             state.email = action.payload
-        },
-        addPassword: (state, action) => {
+        }),
+        addPassword: create.reducer( (state, action) => {
             // {type: "user/addPassword", payload: "12345367"}
             state.password = action.payload
-        },
-        setSubmit: (state, action) => {
+        }),
+        setSubmit: create.reducer( (state, action) => {
             // {type: "user/setSubmit", payload: "boolean"}
             state.isSubmit = action.payload
-        },
-        setToken: (state, action) => {
+        }),
+        setToken: create.reducer( (state, action) => {
             state.token = action.payload  
-        },
-        setSuccess: (state, action) => {
+        }),
+        setSuccess: create.reducer( (state, action) => {
             state.isSuccess = action.payload
-        },
-        setErrorMsg: (state, action) => {
+        }),
+        setErrorMsg: create.reducer( (state, action) => {
             state.errorMsg = action.payload
-        },
-        setServerMsg: (state, action) => {
+        }),
+        setServerMsg: create.reducer( (state, action) => {
             state.serverMsg = action.payload
-        }, 
+        }), 
         clearState:(state) => {
             state.isError =  false;
             state.isSuccess = false;
+            state.isFetching = false;
+            state.token = ""
             return state;
         }
-    },
+    }),
+    extraReducers: builder => {
+        builder
+        .addCase(userRegister.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(userRegister.fulfilled, (state, action) => {
+            state.email = action.payload
+            state.password = action.payload
+            state.isSuccess = true
+            state.isFetching = false
+            state.errorMsg = ''
+        })
+        .addCase(userRegister.rejected, (state, action) => {
+            state.isSubmit = false
+            state.isFetching = false
+            state.isError = true;
+            state.errorMsg = action.error.message
+            state.serverMsg = action.payload
+        })
+    }
+
+
+
     // extraReducers: {
     //     [userRegister.pending]: (state) => {
     //         state.isFetching = true;

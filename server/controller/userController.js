@@ -20,7 +20,7 @@ module.exports.createUser = async (req, res) => {
                 email: req.body.email,
                 password: hashPassword,
             });
-
+            console.log(newUser)
             let result = await newUser.save()
             .then(() => res.status(201).json({msg: newUser}))
             return result
