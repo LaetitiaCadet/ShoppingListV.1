@@ -1,10 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
-
+import { useNavigate } from "react-router-dom"
 import { setName } from "./profilSlice"
 import { setServerMsg} from "./registerSlice"
 
 
 const baseUrl = "http://localhost:5000"
+const navigate = useNavigate()
 
 export const userRegister = createAsyncThunk (
     'user/register',
@@ -26,8 +27,14 @@ export const userRegister = createAsyncThunk (
             })
             .then((response) => {
               if (response.status === 200){
-                dispatch(setServerMsg(response.message)) 
-                return response.data
+
+                dispatch(setServerMsg(response.message))
+                setTimeout(()=> {
+                  navigate('/login')
+                  return response.data
+                },3000)
+
+                
               }
             })
         } catch (error){
