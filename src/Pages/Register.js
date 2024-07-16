@@ -46,33 +46,8 @@ const Register = () => {
     }
 
     const registerUser = async () => {
-        // if (errorMsg){
-        //     setServeurError(serverMsg)
-        // }
         dispatch(userRegister({name, email, password}))
-        if (success){
-            navigate('/login')
-        }
-        // await fetch("http://localhost:5000/register", {
-        //     method: "POST",
-        //     headers:{
-        //         'Accept': 'application/json',
-        //         "Content-Type": "application/json",   
-        //     },
-        //     body: JSON.stringify(registerUserObject),
-        // })
-        // .then(response => {
-        //     if (response.ok){
-        //         console.log(response.statusText)
-        //         // alert("Votre compte à été crée avec succès! Vous allez être redirigez sur la page de connection.")
-        //         // navigate("/login")
-        //     } 
-        // })
-        // .catch((error) => {
-        //     console.error(error.message)
-        //     setServeurError(error.message)
-
-        // })
+        .then(() => navigate('/login'))
     }
     
     const onButtonClick = () => {

@@ -5,7 +5,7 @@ import { setServerMsg} from "./registerSlice"
 
 
 const baseUrl = "http://localhost:5000"
-const navigate = useNavigate()
+
 
 export const userRegister = createAsyncThunk (
     'user/register',
@@ -27,14 +27,9 @@ export const userRegister = createAsyncThunk (
             })
             .then((response) => {
               if (response.status === 200){
-
+                console.log(response)
                 dispatch(setServerMsg(response.message))
-                setTimeout(()=> {
-                  navigate('/login')
-                  return response.data
-                },3000)
-
-                
+                return response.data  
               }
             })
         } catch (error){
@@ -55,16 +50,26 @@ export const userLogin = createAsyncThunk (
       const {rejectWithValue, dispatch} = thunkAPI
         try{
            await fetch(baseUrl + '/login', {
-                email: email, 
-                password: password
+                method: "POST",
+                headers:{
+                    'Accept': 'application/json',
+                    "Content-Type": "application/json",   
+                },
+                body: JSON.stringify({
+                  email: email, 
+                  password: password
+                }),
               })
-              .then((response) => {
-                if (response.status === 200){
-                  sessionStorage.setItem("user", response.data.body.token)
-                  dispatch(setServerMsg(response.data.message)) 
-                  return response.data
+              .then(response => response.json())
+              .then(data => {
+                const userData = data
+                if (userData.status === 200){
+                  sessionStorage.setItem("user", userData.token)
+                  dispatch(setServerMsg(userData.message))
                 }
-              })
+                return userData
+              })  
+
         } catch (error){
           if (error.response) { 
             console.log(error.response.data);

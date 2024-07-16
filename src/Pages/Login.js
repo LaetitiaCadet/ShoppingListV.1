@@ -3,45 +3,44 @@ import { Link, useNavigate } from "react-router-dom";
 import Nav from "../components/Nav"
 import Footer from "../components/Footer";
 import "../Scss/pages/Login.scss"
+import { addEmail, addPassword} from "../reducers/loginSlice"
+import { userLogin } from "../reducers/action";
+import { useDispatch, useSelector } from "react-redux"
+
 
 
 const Login = () =>{
-    const [email, setEmail] = useState('');
+
+    const email = useSelector((state) => state.userLogin.email)
+    const password = useSelector((state) => state.userLogin.password)
+    const success = useSelector((state) => state.userLogin.isSuccess)
+    const currentState = useSelector((state) => state.userLogin)
+    console.log(currentState)
+    // const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('')
-    const [password, setPassword] = useState('');
+    // const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('')
     const [error, setError] = useState('');
     const [token, setToken] = useState('')
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    const userObject = {
-        email: email,
-        password: password,
-    } 
+    const handleEmailInputChange = (e) => {
+        e.persist();
+        dispatch(addEmail(e.target.value))
+    }
+
+    const handlePasswordInputChange = (e) => {
+        e.persist();
+        dispatch(addPassword(e.target.value))
+    }
 
     const loginUser = async () => {
-        try {
-            await fetch("http://localhost:5000/login", {
-                method: "POST",
-                headers:{
-                    'Accept': 'application/json',
-                    "Content-Type": "application/json",   
-                },
-                body: JSON.stringify(userObject),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const resData = data
-                    setToken(sessionStorage.setItem('user', resData.token))
-                    if (resData.status === 200){
-                        navigate(`/Profil?id=${resData._id}`)
-                    }
-                    setError(resData.message)
-            })
-        } catch (response) {
-            console.log(response)
-        }
+        dispatch(userLogin({email, password}))
+        .then(() => {
+                navigate('/Profil')
+        })
     }
 
     const onButtonClick = () => {
@@ -59,11 +58,8 @@ const Login = () =>{
         } else {
             loginUser() 
         }
-
-           
+      
     }
-
-
 
     return (
         <div className="App">
@@ -78,7 +74,7 @@ const Login = () =>{
                                 type="email"
                                 id="email"
                                 placeholder="Entrez votre adresse email"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={handleEmailInputChange}
                             />
                             <span className="errorLabel">{emailError}</span>
                         </div>
@@ -89,7 +85,7 @@ const Login = () =>{
                                 id="password"
                                 placeholder="Entrez votre mot de passe"
                                 autoComplete="current-password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={handlePasswordInputChange}
                             />
                             <span className="errorLabel">{passwordError}</span>
                         </div>

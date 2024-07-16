@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Nav from '../../components/Nav'
+import List from '../../components/lists'
 import SearchBar from '../../components/SearchBar'
+import Footer from '../../components/Footer'
 
 const Profil = () => {
    const [name, setName] = useState()
@@ -41,16 +43,26 @@ const Profil = () => {
          <div className='App'>
             <header>
                <Nav/>
+               <h1>Bonjour { name ? name : "cher utilisateur"}</h1>
+               <p>Citation du jour</p>
             </header>
-            <h1>Bonjour { name ? name : "cher utilisateur"}</h1>
-            <p>Citation du jour</p>
-            <SearchBar></SearchBar>
+            <main>
+               <section>
+                  <p>Pour commencer crée toi une liste afin d'y enregistré les produits qui t'intéresse</p>
+                  <List></List>
+                  <p>En suite utilise la barre de recherche des produits ci-dessous ! </p>
+                  <SearchBar></SearchBar>
+               </section>
+            </main>
+
+
          </div>
       :
       <div>
          <h1>Une erreur est survenue</h1>
       </div> 
-   }    
+   }
+   <Footer></Footer>
    </div>
  )
 }

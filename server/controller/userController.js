@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require("../database/models/user")
+const List = require("../database/models/list")
 const dotenv = require("dotenv")
 
 // Creation d'un nouvel utilisateur 
@@ -88,6 +89,7 @@ module.exports.loginUser = async (req, res) => {
       
 }
 
+// Récupération donnée utilisateur 
 module.exports.getUserProfil = async (req, res) => {
     let response = {}
     try {
@@ -109,4 +111,17 @@ module.exports.getUserProfil = async (req, res) => {
         throw new Error(error)
     }
     res.status(response.status).json(response)
+}
+
+//création d'une nouvelle liste de course 
+module.exports.createShoppingList = async (req, res) => {
+    let response = {}
+    try {
+        const list = new List (req.body); 
+        console.log(list)
+        const savedList = await list.save()
+        res.status(201).json(savedList);        
+    } catch (error) {
+        res.status(500).json({ error: error.message})
+    }
 }

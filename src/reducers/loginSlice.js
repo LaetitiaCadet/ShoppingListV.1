@@ -118,12 +118,14 @@ const loginSlice = createSlice({
             state.loading = true;
         })
         .addCase(userLogin.fulfilled, (state, action) => {
+            console.log(action)
             state.email = action.payload
             state.password = action.payload
-            state.isSuccess = action.payload
+            state.isSuccess = true
             state.isFetching = false
             state.token = sessionStorage.getItem("user")
-            state.errorMsg = ''
+            state.errorMsg = ""
+            state.serverMsg = action.payload
         })
         .addCase(userLogin.rejected, (state, action) => {
             state.isSubmit = false
