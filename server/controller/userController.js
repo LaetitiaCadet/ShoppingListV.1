@@ -113,6 +113,28 @@ module.exports.getUserProfil = async (req, res) => {
     res.status(response.status).json(response)
 }
 
+module.exports.getAllList = async (req, res) => {
+    try {
+
+        const list = await List.find()
+        console.log(list)
+        res.json(list)
+
+        if(!list){
+            throw new Error ('list not found')
+        }
+
+        response.status = 200
+        response.message = 'Successfully got list profile data'
+        response.name = list.name
+
+
+    } catch (error) {
+        console.error('Error in userController', error)
+        throw new Error(error)
+    }
+    res.status(response.status).json(response)
+}
 //création d'une nouvelle liste de course 
 module.exports.createShoppingList = async (req, res) => {
     let response = {}
