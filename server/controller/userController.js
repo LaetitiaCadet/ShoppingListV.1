@@ -113,13 +113,16 @@ module.exports.getUserProfil = async (req, res) => {
     res.status(response.status).json(response)
 }
 
-module.exports.getAllList = async (req, res) => {
+module.exports.getAllLists = async (req, res) => {
+    const response = {}
+    const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
+    const decodedToken = jwt.decode(jwtToken)
+    // const user = await User.findOne({_id: decodedToken.id})
     try {
 
-        const list = await List.find()
+        const list = await List.find({_id: decodedToken.id})
         console.log(list)
-        res.json(list)
-
+        
         if(!list){
             throw new Error ('list not found')
         }

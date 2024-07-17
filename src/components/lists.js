@@ -16,10 +16,9 @@ const List = () => {
     const getAllLists = async () => {
         try {
             await fetch('http://localhost:5000/lists', {
-                method:"GET",
                 headers:{
-                    'Accept': 'application/json',
-                    "Content-Type": "application/json",
+                    // 'Accept': 'application/json',
+                    // "Content-Type": "application/json",
                     'Authorization': 'Bearer' + token
                 },
             }).then((response) => {

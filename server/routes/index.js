@@ -18,7 +18,7 @@ router.post('/profil', auth, userController.getUserProfil)
 
 router.post('/lists', auth, userController.createShoppingList)
 
-router.post('/list', auth, userController.getAllList)
+router.get('/lists', auth, userController.getAllLists)
 
 // router.put('/profil', auth, userController.updateUserProfil)
 
