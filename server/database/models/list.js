@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 // definis un schema pour la collection 'list'
 const listSchema = mongoose.Schema({
     // _id: {type: String, required: true},
-    name: {type: String, required: true},
+    user_id:{type:String, required:true},
+    listName: {type: String, required: true},
     productsList: {type: Array, required: false},
     favorits: {type: Array, required: false},
-    date: { type: Date, default: Date.now},
+    dateAdded: { type: Date, default: Date.now},
 });
 
  

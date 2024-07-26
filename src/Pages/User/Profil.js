@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Nav from '../../components/Nav'
-import List from '../../components/lists'
+import CreateList from '../../components/CreateLists'
 import SearchBar from '../../components/SearchBar'
 import Footer from '../../components/Footer'
 
 const Profil = () => {
-   const [name, setName] = useState()
+   const [name, setName] = useState();
+
    const navigate = useNavigate()
    const token = sessionStorage.getItem('user')
-   
+
 
    useEffect(()=> {
       const fetchData = async() => {
@@ -37,6 +38,7 @@ const Profil = () => {
       }
       fetchData()
   },[navigate, token])
+
  return (
     <div>
       { token ?
@@ -49,7 +51,7 @@ const Profil = () => {
             <main>
                <section>
                   <p>Pour commencer crée toi une liste afin d'y enregistré les produits qui t'intéresse</p>
-                  <List></List>
+                  <CreateList></CreateList>
                   <p>En suite utilise la barre de recherche des produits ci-dessous ! </p>
                   <SearchBar></SearchBar>
                </section>

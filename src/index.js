@@ -15,6 +15,7 @@ import Login  from './Pages/Login';
 import Register from './Pages/Register';
 import Account from './Pages/User/Account';
 import Profil from './Pages/User/Profil';
+import Lists from './Pages/User/Lists';
 import Favorits from './Pages/User/Favorits'
 
 //redux  
@@ -34,6 +35,7 @@ root.render(
         <Route path="Register" element={<Register />} />
         <Route path="About" element={<About />} />
 
+        <Route path="Lists" element={<Lists />} />
         <Route path="Profil" element={<Profil />} />
         <Route path="Favoris" element={<Favorits />} />
         <Route path="Account" element={<Account />} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import {
     Link,
     useNavigate,
@@ -26,7 +26,7 @@ const Nav = () => {
                     {
                         token ?                  
                         <li>
-                            <Link to="/List">Mes Listes</Link>
+                            <Link to="/Lists">Mes Listes</Link>
                             <Link to="/Account">Compte</Link>
                             <Link to="/Farovis">Favori</Link>
                             <Link onClick={LogOut} className="nav-link"><i className="fa-sharp fa-solid fa-arrow-right-from-bracket me-2"></i>Déconnexion</Link>

@@ -113,23 +113,24 @@ module.exports.getUserProfil = async (req, res) => {
     res.status(response.status).json(response)
 }
 
-module.exports.getAllLists = async (req, res) => {
+module.exports.getAllLists = async (req, res) => { 
     const response = {}
     const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
     const decodedToken = jwt.decode(jwtToken)
-    // const user = await User.findOne({_id: decodedToken.id})
-    try {
+    const user = await User.findOne({_id: decodedToken.id})
 
-        const list = await List.find({_id: decodedToken.id})
-        console.log(list)
+    try {
+        const userLists = await List.find({user_id: user._id})
+        console.log(userLists)
+        console.log('liste récupéré')
         
-        if(!list){
+        if(!userLists){
             throw new Error ('list not found')
         }
 
         response.status = 200
         response.message = 'Successfully got list profile data'
-        response.name = list.name
+        response.lists = userLists
 
 
     } catch (error) {
@@ -141,10 +142,18 @@ module.exports.getAllLists = async (req, res) => {
 //création d'une nouvelle liste de course 
 module.exports.createShoppingList = async (req, res) => {
     let response = {}
+
+    const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
+    const decodedToken = jwt.decode(jwtToken)
+    const user = await User.findOne({_id: decodedToken.id})
+    console.log(user._id)
+
     try {
-        const list = new List (req.body); 
+        const list = new List (req.body);
+        list.user_id = user._id 
         console.log(list)
         const savedList = await list.save()
+
         res.status(201).json(savedList);        
     } catch (error) {
         res.status(500).json({ error: error.message})
