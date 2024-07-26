@@ -112,7 +112,7 @@ module.exports.getUserProfil = async (req, res) => {
     }
     res.status(response.status).json(response)
 }
-
+//récupération des lists par utilisateur 
 module.exports.getAllLists = async (req, res) => { 
     const response = {}
     const jwtToken = req.headers.authorization.split('Bearer')[1].trim()

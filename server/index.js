@@ -17,10 +17,10 @@ connectDB()
 //Lancement du serveur
 const app = express()
 
-const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
-const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'))
+// const key = fs.readFileSync(path.join(__dirname, 'certificate', 'server.key'));
+// const cert = fs.readFileSync(path.join(__dirname, 'certificate', 'server.cert'))
 
-const option = {key, cert}
+// const option = {key, cert}
 
 //MIDDLEWARE
 // parse application/x-www-form-urlencoded
