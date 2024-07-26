@@ -30,6 +30,7 @@ module.exports.createUser = async (req, res) => {
             // return result
         }            
     } catch (error) {
+        console.log(error)
         console.error('Error in service', error) 
     }
 }
@@ -83,6 +84,7 @@ module.exports.loginUser = async (req, res) => {
         console.error(error)
         response.status = 400 
         response.message = error.message 
+        console.log(error)
         // res.status(500).json({ message: 'Internal server error' })
     }
     res.status(response.status).send(response)
