@@ -16,6 +16,10 @@ router.post('/login',  userController.loginUser)
 
 router.post('/profil', auth, userController.getUserProfil)
 
+router.post('/lists', auth, userController.createShoppingList)
+
+router.get('/lists', auth, userController.getAllLists)
+
 // router.put('/profil', auth, userController.updateUserProfil)
 
 

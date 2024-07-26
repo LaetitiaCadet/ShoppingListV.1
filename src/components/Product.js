@@ -1,8 +1,10 @@
 import React from 'react'
+// import { useContext } from 'react'
 import './../Scss/components/_Product.scss'
 
 
 const Product = ({ id, image_small_url, brands, nutriscore_grade, origins, generic_name_fr_imported, abbreviated_product_name }) => {
+
     return (
         <li className='Product' id={id} key={id}>
             <figure>

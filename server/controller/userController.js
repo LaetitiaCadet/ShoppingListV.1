@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require("../database/models/user")
+const List = require("../database/models/list")
 const dotenv = require("dotenv")
 
 // Creation d'un nouvel utilisateur 
@@ -20,7 +21,7 @@ module.exports.createUser = async (req, res) => {
                 email: req.body.email,
                 password: hashPassword,
             });
-
+            console.log(newUser)
             let result = await newUser.save()
             .then(() => res.status(201).json({msg: newUser}))
             return result
@@ -88,6 +89,7 @@ module.exports.loginUser = async (req, res) => {
       
 }
 
+// Récupération donnée utilisateur 
 module.exports.getUserProfil = async (req, res) => {
     let response = {}
     try {
@@ -109,4 +111,51 @@ module.exports.getUserProfil = async (req, res) => {
         throw new Error(error)
     }
     res.status(response.status).json(response)
+}
+
+module.exports.getAllLists = async (req, res) => { 
+    const response = {}
+    const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
+    const decodedToken = jwt.decode(jwtToken)
+    const user = await User.findOne({_id: decodedToken.id})
+
+    try {
+        const userLists = await List.find({user_id: user._id})
+        console.log(userLists)
+        console.log('liste récupéré')
+        
+        if(!userLists){
+            throw new Error ('list not found')
+        }
+
+        response.status = 200
+        response.message = 'Successfully got list profile data'
+        response.lists = userLists
+
+
+    } catch (error) {
+        console.error('Error in userController', error)
+        throw new Error(error)
+    }
+    res.status(response.status).json(response)
+}
+//création d'une nouvelle liste de course 
+module.exports.createShoppingList = async (req, res) => {
+    let response = {}
+
+    const jwtToken = req.headers.authorization.split('Bearer')[1].trim()
+    const decodedToken = jwt.decode(jwtToken)
+    const user = await User.findOne({_id: decodedToken.id})
+    console.log(user._id)
+
+    try {
+        const list = new List (req.body);
+        list.user_id = user._id 
+        console.log(list)
+        const savedList = await list.save()
+
+        res.status(201).json(savedList);        
+    } catch (error) {
+        res.status(500).json({ error: error.message})
+    }
 }
