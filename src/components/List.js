@@ -7,7 +7,7 @@ const List = ({ _id, listName, dateAdded}) => {
         <li className='List' id={_id} key={_id}>
                 <div className='list-title'>
                     <h3>{listName}</h3>
-                    <h5>{dateAdded}</h5>
+                    <p>{dateAdded}</p>
                 </div>
                 <button className='modify_list'> Modifier la liste </button>
                 <button className='delete_list'> Supprimer la liste </button>

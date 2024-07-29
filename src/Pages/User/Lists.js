@@ -46,17 +46,6 @@ const Lists = () => {
                <p>Ici sont regrouper toutes tes listes</p>
             </header>
             <main>
-                <section>
-                <p>test</p>
-                <div>
-                {
-                  userList && userList.map((item) => {
-                       return <div>{item.dateAdded}</div>
-                    })
-                }
-                </div>
-
-                </section>
                <section>
                 <ul>
                     {userList && userList.map(({_id, listName, dateAdded}) => {

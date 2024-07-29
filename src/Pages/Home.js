@@ -12,9 +12,10 @@ function Home() {
                 <Nav />
                 <section className="Header-Img-Home">
                     <h1>Faire ça liste de course de manière plus efficace !</h1>
+                    <Link className="" to="/login">C'est partie !</Link>
                 </section>
             </header>
-            <Link className="" to="/login">C'est partie !</Link>
+
             <Footer />
         </div>
     )
