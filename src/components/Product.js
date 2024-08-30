@@ -5,6 +5,17 @@ import './../Scss/components/_Product.scss'
 
 const Product = ({ id, image_small_url, brands, nutriscore_grade, origins, generic_name_fr_imported, abbreviated_product_name }) => {
 
+    const addToList = () => {
+        const product = {
+            id: id,
+            name: generic_name_fr_imported,
+            brand : brands,
+            image : image_small_url,
+            nutriscore: nutriscore_grade,
+        }   
+        console.log(product)
+    }
+
     return (
         <li className='Product' id={id} key={id}>
             <figure>
@@ -16,7 +27,7 @@ const Product = ({ id, image_small_url, brands, nutriscore_grade, origins, gener
                     <p>Origine: {origins}</p>
                     <p>Nutri-score: {nutriscore_grade}</p>
                 </figcaption>
-                <button className='add_to_list'> Ajouter à la liste </button>
+                <button className='add_to_list' onClick={addToList}> Ajouter à la liste </button>
             </figure>
         </li>
     )
