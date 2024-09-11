@@ -1,6 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
-import { useNavigate } from "react-router-dom"
-import { setName } from "./profilSlice"
+import { setName, setUserList } from "./profilSlice"
 import { setServerMsg} from "./registerSlice"
 
 
@@ -82,7 +81,6 @@ export const userLogin = createAsyncThunk (
     }
 )
 
-
 export const userInfos = createAsyncThunk (
   'user/profil',
   async ({token}, thunkAPI) => {
@@ -95,6 +93,7 @@ export const userInfos = createAsyncThunk (
             })
             .then((response) => {
               const responseBody = response.data.body
+
               dispatch(setName(responseBody.name))
               return response.data
             })
@@ -124,7 +123,7 @@ export const updateUserInfos = createAsyncThunk (
           }
          })
           .then((response) => {
-              return response.data
+              return response.data.body
           })
       } catch (error){
           console.log("Error", error.response.data)
@@ -133,4 +132,40 @@ export const updateUserInfos = createAsyncThunk (
       }
   }
 
+)
+
+export const getUserLists = createAsyncThunk(
+  "user/profil",
+  async ({token}, thunkAPI) => {
+    const {dispatch, rejectWithValue} = thunkAPI
+  try {
+   const response = await fetch(baseUrl + '/lists', {
+        headers:{
+            'Accept': 'application/json',
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer' + token
+        },
+    })
+    let data = await response.json()
+    let lists = data.lists
+    if (data.status === 200){
+      console.log(lists)
+      dispatch(setUserList(lists))
+    }
+    return lists
+    // .then((response) => {
+    //   console.log(token)
+    //   console.log(response)
+    //   let responseBody = response.data.body
+    //   console.log(responseBody)
+    //   dispatch(setUserList(responseBody.lists))
+    //   console.log(responseBody.lists)
+    //   return responseBody
+    // } )
+
+    } catch (error){
+        console.log(error)
+        console.error(error)
+    }
+  }
 )

@@ -48,17 +48,13 @@ const Lists = () => {
             <main>
                <section>
                 <ul>
-                    {userList && userList.map(({_id, listName, dateAdded}) => {
-                    //Solution non définitive, trouver pourquoi l'affichage se fait qu'au "RETURN"
-                       return <List
+                    {userList && userList.map(({_id, listName, dateAdded}) =>
+                              <List
                                 key = {_id}
                                 id = {_id}
                                 listName = {listName}
                                 dateAdded = {dateAdded}
-                            />
-
-
-                        })
+                            />)
                     }
                 </ul>
                </section>

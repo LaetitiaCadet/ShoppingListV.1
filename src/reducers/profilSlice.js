@@ -5,7 +5,8 @@ const profilSlice = createSlice({
     initialState: {
         name: "",
         isLogged: false, 
-        modifyInfos: false
+        modifyInfos:false,
+        userLists: [],
     },
     reducers: {
         //Profil
@@ -19,10 +20,14 @@ const profilSlice = createSlice({
         setLogged:(state, action) =>{
             state.isLogged = action.payload
         },
+        setUserList: (state, action) => {
+            state.userLists = action.payload
+        }
         
     },
 
 })
 
-export const {setName, setSubmitInfos, setLogged} = profilSlice.actions;
+export const {setName, setSubmitInfos, setLogged , setUserList} = profilSlice.actions;
+
 export default profilSlice

@@ -30,14 +30,24 @@
     margin: 20px;
 
 }
+.Product-buttons{
+    display: flex;
+    align-items: center;
+    .add_to_list {
+        background-color: rgb(53, 170, 53);
+        color: white;
+        display: block;
+        margin: 0 auto;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        font-weight: 700;
+    }
 
-.add_to_list {
-    background-color: rgb(53, 170, 53);
-    color: white;
-    display: block;
-    margin: 0 auto;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 20px;
-    font-weight: 700;
+    .add_to_favorit{
+        border: none;
+        background: transparent;
+        color: red
+    }
 }
+
