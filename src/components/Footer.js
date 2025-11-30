@@ -6,8 +6,11 @@ function Footer() {
         <div>
             <footer>
                 {/* <img src={logo} className="Footer-logo" alt="logo"/> */}
-                <h3 className="Footer-logo">Shopping List V.1</h3>
-                <p>© 2024 Kreatyss. All rights reserved</p>
+                <div>
+                    <h3 className="Footer-logo">Shopping List V.1</h3>
+                    <p>© 2024 Kreatyss. All rights reserved</p>
+                </div>
+
             </footer>
         </div>
     )

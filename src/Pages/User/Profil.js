@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Nav from '../../components/Nav'
-import CreateList from '../../components/CreateLists'
+import CreateList from '../../components/CreateList'
 import SearchBar from '../../components/SearchBar'
 import Footer from '../../components/Footer'
 

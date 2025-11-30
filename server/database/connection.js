@@ -13,13 +13,13 @@ const connectDB = async () => {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
        } catch (error) {
         console.error(error.message)
-        //quitter le process 
+        //quitter le process
         process.exit(1)
     }
-    // finally {
-      //   // Ensures that the client will close when you finish/error
-      //   await mongoose.disconnect();
-      // }
+    finally {
+        // Ensures that the client will close when you finish/error
+        await mongoose.disconnect();
+      }
 }
 connectDB().catch(console.dir);
 //configuration mongo

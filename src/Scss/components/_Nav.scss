@@ -24,7 +24,9 @@
 
   .Nav-items li {
     font-size: 15px;
-    margin: 0 15px;
+     a {
+      margin: 0 15px;
+     }
   }
 
   @media screen and (max-width: 844px) {
@@ -37,13 +39,10 @@
       align-items: center;
     }
 
-    .Nav-items li {
-      width: 80px;
-    }
-
     .Nav-items a {
       font-size: 18px;
       line-height: 17.11px;
+      margin: 0 15px;
     }
 
   }
