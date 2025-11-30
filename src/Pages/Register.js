@@ -64,7 +64,7 @@ const Register = () => {
             setEmailError('Veuillez saisir une adresse email valide')
         } else if('' === password){
             setPasswordError('Veuillez saisir votre mot de passe')
-        } else if(password.length < 6){
+        } else if(password.length < 7){
             setPasswordError('Votre mot de passe doit contenir 8 characters minimum')
         } else if (password !== confirmPassword){
             setPasswordError('Les deux mots de passe sont différent')
